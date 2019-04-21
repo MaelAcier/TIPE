@@ -108,18 +108,22 @@
 </div>
 
 <div class="uk-container uk-container-expand uk-margin-medium">
-  <div class="uk-grid-divider" uk-grid>
+  <div class="uk-grid" uk-grid>
+    <div class="uk-width-auto@m">
+
+        <div class="uk-panel-scrollable uk-height-viewport">
+
+            <app-control-panel></app-control-panel>
+
+        </div>
+      
+    </div>
     <div class="uk-width-expand@m">
       <div>
 
         <app-graphs [graphs]="graphs"></app-graphs>
 
       </div>
-    </div>
-    <div class="uk-width-1-4@m">
-
-      <app-control-panel></app-control-panel>
-
     </div>
   </div>
 </div>

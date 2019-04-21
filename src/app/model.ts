@@ -181,7 +181,7 @@ export class Model {
             }
         }
         this.arrayX = [0]
-        this.arrayY = Array.from(populations, x => [x || 2])
+        this.arrayY = Array.from(populations, x => [x])
         this.derivative = Array.from(populations, x => [NaN])
         step = step <= 0 ? 0.001 : step
         for (let i = step; i < duration; i += step) {

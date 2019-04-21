@@ -1,4 +1,4 @@
-<ul class="uk-tab" uk-switcher="animation: uk-animation-fade" *ngIf="graphs!=undefined">
+<ul class="uk-child-width-1-2" uk-switcher="animation: uk-animation-fade" *ngIf="graphs!=undefined" uk-tab>
   <li *ngFor="let graph of graphs">
     <a href="#">{{graph.layout.title.text}}</a>
   </li>
@@ -14,7 +14,7 @@
   <div class="uk-modal-dialog uk-modal-body">
     <button class="uk-modal-close-default" type="button" uk-close></button>
     <div class="uk-modal-header">
-      <h2 class="uk-modal-title">Paramètres d'exportation de la capture du graphe</h2>
+      <h2 class="uk-modal-title">Paramètres d'exportation: capture du graphe</h2>
     </div>
     <div class="uk-margin-small uk-grid-small uk-child-width-1-2" uk-grid>
 

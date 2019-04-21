@@ -30,7 +30,7 @@ export class GraphsComponent implements OnInit {
     UIkit.notification({message: `<strong>Information:</strong> Le graphe n'est pas adapté à la fenêtre. 
     Pour y remédier, réduire <span class="uk-margin-small-right" uk-icon="icon: shrink"></span>
     puis agrandir <span class="uk-margin-small-right" uk-icon="icon: expand"></span> la fenêtre. </p>`,
-     status: 'danger', pos: 'top-left', timeout:0})
+     status: 'danger', pos: 'bottom-right', timeout:0})
   }
 
   resize() {
