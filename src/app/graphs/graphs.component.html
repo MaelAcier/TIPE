@@ -1,0 +1,65 @@
+<ul class="uk-tab" uk-switcher="animation: uk-animation-fade" *ngIf="graphs!=undefined">
+  <li *ngFor="let graph of graphs">
+    <a href="#">{{graph.layout.title.text}}</a>
+  </li>
+</ul>
+
+<ul class="uk-switcher uk-margin">
+  <li *ngFor="let graph of graphs">
+    <plotly-plot [data]="graph.data" [layout]="graph.layout" [config]="config"></plotly-plot>
+  </li>
+</ul>
+
+<div id="capture" uk-modal>
+  <div class="uk-modal-dialog uk-modal-body">
+    <button class="uk-modal-close-default" type="button" uk-close></button>
+    <div class="uk-modal-header">
+      <h2 class="uk-modal-title">Paramètres d'exportation de la capture du graphe</h2>
+    </div>
+    <div class="uk-margin-small uk-grid-small uk-child-width-1-2" uk-grid>
+
+      <form class="uk-form-stacked">
+
+        <div class="uk-margin">
+
+          <div class="uk-margin uk-width-auto">
+            <label class="uk-form-label">Format</label>
+            <select class="uk-select" [(ngModel)]="config.toImageButtonOptions.format" name="format">
+              <option>png</option>
+              <option>svg</option>
+              <option>jpeg</option>
+              <option>webp</option>
+            </select>
+          </div>
+
+          <div class="uk-margin uk-width-auto">
+            <label class="uk-form-label" for="form-s-number">Echelle</label>
+            <input class="uk-input" id="form-s-number" type="number" min="0" max="5" [(ngModel)]="config.toImageButtonOptions.scale" name="scale">
+          </div>
+
+        </div>
+      </form>
+
+      <form class="uk-form-stacked">
+
+        <div class="uk-margin">
+
+          <div class="uk-margin uk-width-auto">
+            <label class="uk-form-label" for="form-s-number">Largeur</label>
+            <input class="uk-input" id="form-s-number" type="number" min="0" max="5000" [(ngModel)]="config.toImageButtonOptions.width" name="width">
+          </div>
+
+          <div class="uk-margin uk-width-auto">
+            <label class="uk-form-label" for="form-s-number">Hauteur</label>
+            <input class="uk-input" id="form-s-number" type="number" min="0" max="5000" [(ngModel)]="config.toImageButtonOptions.height" name="height">
+          </div>
+
+        </div>
+      </form>
+
+    </div>
+    <p class=" uk-text-right">
+      <button class="uk-button uk-button-primary uk-modal-close" type="button">Sauvegarder</button>
+      <p>
+  </div>
+</div>

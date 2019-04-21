@@ -1,0 +1,125 @@
+<div class="uk-container-expand">
+  <nav class="uk-navbar-container uk-margin" uk-navbar>
+    <!-- <div class="uk-navbar-left">
+
+      <ul class="uk-navbar-nav">
+        <li>
+          <a href="#">Left</a>
+          <div class="uk-navbar-dropdown">
+            <ul class="uk-nav uk-navbar-dropdown-nav">
+              <li class="uk-active"><a href="#">Active</a></li>
+              <li class="uk-parent">
+                <a href="#">Parent</a>
+                <ul class="uk-nav-sub">
+                  <li><a href="#">Sub item</a></li>
+                  <li><a href="#">Sub item</a></li>
+                </ul>
+              </li>
+              <li class="uk-nav-header">Header</li>
+              <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+              <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+              <li class="uk-nav-divider"></li>
+              <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+
+    </div> -->
+    <div class="uk-navbar-center">
+
+      <div class="uk-navbar-center-left">
+        <div>
+          <ul class="uk-navbar-nav">
+            <li>
+              <a href="#">Modèles</a>
+              <div class="uk-navbar-dropdown">
+                <ul class="uk-nav uk-navbar-dropdown-nav">
+                  <li class="uk-nav-header">Références Wikipédia</li>
+                  <li class="uk-nav-divider"></li>
+                  <li><a target="_blank" href="https://en.wikipedia.org/wiki/Malthusian_growth_model">Malthus</a></li>
+                  <li><a target="_blank" href="https://fr.wikipedia.org/wiki/Mod%C3%A8le_de_Verhulst">Verhulst</a></li>
+                  <li class="uk-parent">
+                    <a href="#">Allee</a>
+                    <ul class="uk-nav-sub">
+                      <li><a target="_blank" href="https://en.wikipedia.org/wiki/Allee_effect#Mathematical_models">Anglais</a></li>
+                      <li><a target="_blank" href="https://fr.wikipedia.org/wiki/Effet_Allee#Mise_en_%C3%A9quation">Français</a></li>
+                    </ul>
+                  </li>
+                  <li class="uk-parent">
+                    <a href="#">Leslie</a>
+                    <ul class="uk-nav-sub">
+                      <li><a target="_blank" href="https://en.wikipedia.org/wiki/Leslie_matrix">Anglais</a></li>
+                      <li><a target="_blank" href="https://fr.wikipedia.org/wiki/Mod%C3%A8le_matriciel_de_population">Français</a></li>
+                    </ul>
+                  </li>
+                  <li class="uk-parent">
+                    <a href="#">Lotka-Volterra</a>
+                    <ul class="uk-nav-sub">
+                      <li><a target="_blank" href="https://fr.wikipedia.org/wiki/%C3%89quations_de_pr%C3%A9dation_de_Lotka-Volterra">Prédation</a></li>
+                      <li><a target="_blank" href="https://fr.wikipedia.org/wiki/%C3%89quations_de_comp%C3%A9tition_de_Lotka-Volterra">Compétition</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <a class="uk-navbar-item uk-logo" href="#">{{title}}</a>
+
+      <div class="uk-navbar-center-right">
+        <div>
+          <ul class="uk-navbar-nav">
+            <li><a href="#capture" uk-toggle>Capture</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+    <!-- <div class="uk-navbar-right">
+
+      <ul class="uk-navbar-nav">
+        <li>
+          <a href="#">Right</a>
+          <div class="uk-navbar-dropdown">
+            <ul class="uk-nav uk-navbar-dropdown-nav">
+              <li class="uk-active"><a href="#">Active</a></li>
+              <li class="uk-parent">
+                <a href="#">Parent</a>
+                <ul class="uk-nav-sub">
+                  <li><a href="#">Sub item</a></li>
+                  <li><a href="#">Sub item</a></li>
+                </ul>
+              </li>
+              <li class="uk-nav-header">Header</li>
+              <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+              <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+              <li class="uk-nav-divider"></li>
+              <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+
+    </div> -->
+  </nav>
+</div>
+
+<div class="uk-container uk-container-expand uk-margin-medium">
+  <div class="uk-grid-divider" uk-grid>
+    <div class="uk-width-expand@m">
+      <div>
+
+        <app-graphs [graphs]="graphs"></app-graphs>
+
+      </div>
+    </div>
+    <div class="uk-width-1-4@m">
+
+      <app-control-panel></app-control-panel>
+
+    </div>
+  </div>
+</div>

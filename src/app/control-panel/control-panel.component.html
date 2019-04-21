@@ -1,0 +1,152 @@
+<ul class="uk-grid-match uk-width-expand" uk-sortable="handle: .uk-card">
+  <li *ngFor="let model of models | keyvalue">
+
+    <div class="uk-card uk-card-default uk-card-hover uk-grid-collapse uk-margin">
+      <div class="uk-card-badge"></div>
+      <div class="uk-card-body">
+
+        <ul uk-accordion>
+          <li class="uk-open">
+
+            <h3 class="uk-accordion-title">{{model.value.name}}</h3>
+            <div class="uk-accordion-content">
+
+              <form class="uk-form-stacked">
+
+                <fieldset class="uk-fieldset">
+                  <div class="uk-margin">
+
+                    <div class="uk-margin-small uk-grid-small" uk-grid>
+
+                      <div class="uk-width-1-2">
+                        <select class="uk-select" (change)="changeModel($event.target.value,model.value.modelID)" autofocus>
+                          <option *ngFor="let modelName of referenceModels | keyvalue"
+                            [selected]="modelName.key == model.value.values.model">
+                            {{modelName.key}}
+                          </option>
+                        </select>
+                      </div>
+
+                      <div class="uk-width-1-2">
+                        <select class="uk-select">
+                          <option
+                            *ngFor="let modelisationName of referenceModels[model.value.values.model].functions | keyvalue"
+                            [selected]="modelisationName.key == model.value.values.modelisation">
+                            {{modelisationName.key}}
+                          </option>
+                        </select>
+                      </div>
+
+                    </div>
+
+                  </div>
+                </fieldset>
+
+                <fieldset class="uk-fieldset">
+                  <div class="uk-margin">
+
+                    <div
+                      *ngFor="let population of referenceModels[model.value.values.model].populationsSettings; index as i">
+                      <label class="uk-form-label"
+                        for="form-s-range">{{model.value.values.arguments.populationNames[i] ? "Population initiale: " + model.value.values.arguments.populationNames[i] : "Population initiale"}}</label>
+                      <div class="uk-margin-small uk-grid-small" uk-grid>
+                        <div class="uk-width-expand">
+                          <input class="uk-range" type="range" [name]="'population-'+i"
+                            (change)="update($event.target.value,model.value.modelID)"
+                            [(ngModel)]="model.value.values.arguments.populations[i]" [min]="population.min"
+                            [max]="population.max" [step]="population.step">
+                        </div>
+                        <div class=" uk-width-1-3">
+                          <input class="uk-input uk-form-width-small uk-form-small" type="number"
+                            [name]="'population-'+i" min="0" max="100000000" [step]="population.step"
+                            (change)="update($event.target.value,model.value.modelID)"
+                            [(ngModel)]="model.value.values.arguments.populations[i]">
+                        </div>
+                      </div>
+                    </div>
+
+                    <label class="uk-form-label" for="form-s-range">Durée</label>
+                    <div class="uk-margin-small uk-grid-small" uk-grid>
+                      <div class="uk-width-expand">
+                        <input class="uk-range" type="range" name="duration"
+                          (change)="update($event.target.value,model.value.modelID)"
+                          [(ngModel)]="model.value.values.arguments.duration"
+                          [min]="referenceModels[model.value.values.model].basicSettings.duration.min"
+                          [max]="referenceModels[model.value.values.model].basicSettings.duration.max"
+                          [step]="referenceModels[model.value.values.model].basicSettings.duration.step">
+                      </div>
+                      <div class="uk-width-1-3">
+                        <input class="uk-input uk-form-width-small uk-form-small" id="form-s-number" type="number"
+                          min="0" max="100000000" name="duration"
+                          [step]="referenceModels[model.value.values.model].basicSettings.duration.step"
+                          (change)="update($event.target.value,model.value.modelID)"
+                          [(ngModel)]="model.value.values.arguments.duration">
+                      </div>
+                    </div>
+
+                    <label class="uk-form-label" for="form-s-range">Delta temps</label>
+                    <div class="uk-margin-small uk-grid-small" uk-grid>
+                      <div class="uk-width-expand">
+                        <input class="uk-range" type="range" name="step"
+                          (change)="update($event.target.value,model.value.modelID)"
+                          [(ngModel)]="model.value.values.arguments.step"
+                          [min]="referenceModels[model.value.values.model].basicSettings.step.min"
+                          [max]="referenceModels[model.value.values.model].basicSettings.step.max"
+                          [step]="referenceModels[model.value.values.model].basicSettings.step.step">
+                      </div>
+                      <div class="uk-width-1-3">
+                        <input class="uk-input uk-form-width-small uk-form-small" id="form-s-number" type="number"
+                          min="0" max="100000000" name="step"
+                          [step]="referenceModels[model.value.values.model].basicSettings.step.step"
+                          (change)="update($event.target.value,model.value.modelID)"
+                          [(ngModel)]="model.value.values.arguments.step">
+                      </div>
+                    </div>
+
+                  </div>
+                </fieldset>
+
+                <fieldset class="uk-fieldset">
+                  <div class="uk-margin">
+
+                    <legend class="uk-legend">Evolution</legend>
+
+                    <div *ngFor="let setting of referenceModels[model.value.values.model].advancedSettings | keyvalue">
+                      <label class="uk-form-label" for="form-s-range">{{setting.value.name}}</label>
+                      <div class="uk-margin-small uk-grid-small" uk-grid>
+                        <div class="uk-width-expand">
+                          <input class="uk-range" id="form-s-range" type="range" [name]="setting.key"
+                            (change)="update($event.target.value,model.value.modelID)"
+                            [(ngModel)]="model.value.values.arguments.args[setting.key]" [min]="setting.value.min"
+                            [max]="setting.value.max" [step]="setting.value.step">
+                        </div>
+                        <div class="uk-width-1-3">
+                          <input class="uk-input uk-form-width-small uk-form-small" id="form-s-number" type="number"
+                            min="0" max="100000000" [name]="setting.key" [step]="setting.value.step"
+                            (change)="update($event.target.value,model.value.modelID)"
+                            [(ngModel)]="model.value.values.arguments.args[setting.key]">
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </fieldset>
+              </form>
+
+            </div>
+
+            <div class="uk-position-bottom-right">
+              <button class="uk-button uk-button-danger" type="button" (click)="delModel(model.value.modelID)"
+                [disabled]="modelNumber === 1"><span uk-icon="icon: trash"></span></button>
+              <button class="uk-button uk-button-primary" type="button" (click)="addModel()"><span
+                  uk-icon="icon: plus"></span></button>
+            </div>
+
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </li>
+
+</ul>
