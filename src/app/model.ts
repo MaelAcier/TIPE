@@ -74,7 +74,40 @@ export var referenceModels = {
             }
         }
     },
-    "Allee": {},
+    "Allee": {
+        default: {
+        model: "Allee",
+        modelisation: "Discret",
+        arguments: {
+            populations: [50],
+            duration: 50,
+            step: 0.001,
+            args: { r: 2.1, K: 100 , A:20}
+        }
+        },
+        basicSettings: {
+            duration: { min: 1, max: 100, step: 1 },
+            step: { min: 0, max: 1, step: 0.0001 },
+        },
+        populationsSettings: [
+            { min: 1, max: 200, step: 1 }
+        ],
+        advancedSettings: {
+            r: { min: 0, max: 3, step: 0.01, name: "Taux de croissance" },
+            K: { min: 0, max: 200, step: 0.01, name: "Capacité d’accueil du milieu" },
+            A: { min: 0, max: 200, step: 0.01, name: "Densité critique" }
+        },
+        functions: {
+            "Discret": (args, previousPopulation, _initialPopulation, dt) => {
+                let previous = previousPopulation[0]
+                let dP = args.r * previous * ((previous / args.A) -1) * (1 - (previous / args.K))
+                return {
+                    actual: [previous + dP * dt],
+                    derivative: [dP]
+                }
+            }
+        }
+    },
     "Leslie": {},
     "Lotka-Volterra": {
         default: {
