@@ -71,6 +71,15 @@ export var referenceModels = {
                     actual: [previous + dP * dt],
                     derivative: [dP]
                 }
+            },
+          "Discret ordre 2": (args, previousPopulation, _initialPopulation, dt) => {
+                let previous = previousPopulation[0]
+                let dP = (args.r * previous * (1 - (previous / args.K)))
+                let dP2 = (args.r * dP - (args.r /args.K * 2 * previous * dP))
+                return {
+                    actual: [previous + dP * dt + dP2 * dt * dt /2],
+                    derivative: [dP]
+                }
             }
         }
     },
