@@ -28,7 +28,7 @@
                       </div>
 
                       <div class="uk-width-1-2">
-                        <select class="uk-select">
+                        <select class="uk-select" (change)="changeModelisation($event.target.value,model.value.modelID)">
                           <option
                             *ngFor="let modelisationName of referenceModels[model.value.values.model].functions | keyvalue"
                             [selected]="modelisationName.key == model.value.values.modelisation">

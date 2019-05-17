@@ -27,6 +27,11 @@ export class ControlPanelComponent implements OnInit {
     models[id].generate()
   }
 
+  changeModelisation (name,id: number) {
+    models[id].values.modelisation = name
+    models[id].generate()
+  }
+
   update (value, id:number) {
     models[id].generate()
   }

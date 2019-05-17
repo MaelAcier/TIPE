@@ -29,10 +29,13 @@ export var referenceModels = {
             r: { min: 0, max: 3, step: 0.01, name: "Taux de croissance" }
         },
         functions: {
-            "Discret": (args, previousPopulation) => {
+            "Discret": (args, previousPopulation, _initialPopulation, dt) => {
                 let previous = previousPopulation[0]
-                let actual = previous * args.r
-                return { actual: [actual] }
+                let dP = previous * args.r
+                return {
+                    actual: [previous + dP * dt],
+                    derivative: [dP]
+                }
             },
             "Continu": (args, _previousPopulation, initialPopulation, _dt, t) => {
                 let initial = initialPopulation[0]
@@ -72,12 +75,12 @@ export var referenceModels = {
                     derivative: [dP]
                 }
             },
-          "Discret ordre 2": (args, previousPopulation, _initialPopulation, dt) => {
+            "Discret ordre 2": (args, previousPopulation, _initialPopulation, dt) => {
                 let previous = previousPopulation[0]
                 let dP = (args.r * previous * (1 - (previous / args.K)))
-                let dP2 = (args.r * dP - (args.r /args.K * 2 * previous * dP))
+                let dP2 = (args.r * dP - (args.r / args.K * 2 * previous * dP))
                 return {
-                    actual: [previous + dP * dt + dP2 * dt * dt /2],
+                    actual: [previous + dP * dt + dP2 * dt * dt / 2],
                     derivative: [dP]
                 }
             }
@@ -85,14 +88,14 @@ export var referenceModels = {
     },
     "Allee": {
         default: {
-        model: "Allee",
-        modelisation: "Discret",
-        arguments: {
-            populations: [50],
-            duration: 50,
-            step: 0.001,
-            args: { r: 2.1, K: 100 , A:20}
-        }
+            model: "Allee",
+            modelisation: "Discret",
+            arguments: {
+                populations: [50],
+                duration: 50,
+                step: 0.001,
+                args: { r: 2.1, K: 100, A: 20 }
+            }
         },
         basicSettings: {
             duration: { min: 1, max: 100, step: 1 },
@@ -109,7 +112,7 @@ export var referenceModels = {
         functions: {
             "Discret": (args, previousPopulation, _initialPopulation, dt) => {
                 let previous = previousPopulation[0]
-                let dP = args.r * previous * ((previous / args.A) -1) * (1 - (previous / args.K))
+                let dP = args.r * previous * ((previous / args.A) - 1) * (1 - (previous / args.K))
                 return {
                     actual: [previous + dP * dt],
                     derivative: [dP]
