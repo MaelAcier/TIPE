@@ -120,7 +120,7 @@ export var referenceModels = {
             }
         }
     },
-    "Leslie": {},
+    // "Leslie": {},
     "Lotka-Volterra": {
         default: {
             model: "Lotka-Volterra",
