@@ -199,13 +199,13 @@ export class Model {
         this.values.arguments.populationNames = this.values.arguments.populationNames || []
         let model: string = this.values.model,
             modelisation: string = this.values.modelisation,
-            populations: number[] = this.values.arguments.populations,
+            initialPopulations: number[] = this.values.arguments.populations,
             populationNames: string[] = this.values.arguments.populationNames || [],
             duration: number = this.values.arguments.duration,
             step: number = this.values.arguments.step,
             args: object = this.values.arguments.args
 
-        var populationsCount = populations.length
+        var populationsCount = initialPopulations.length
         if (this.ids.length !== populationsCount) {
             for (let i = 0, length = globalsIDs.length; i < length; i++) {
                 if (globalsIDs[i] === this.modelID) {
@@ -226,20 +226,16 @@ export class Model {
             }
         }
         this.arrayX = [0]
-        this.arrayY = Array.from(populations, x => [x])
-        this.derivative = Array.from(populations, x => [NaN])
+        this.arrayY = Array.from(initialPopulations, x => [x])
+        this.derivative = Array.from(initialPopulations, x => [NaN])
         step = step <= 0 ? 0.001 : step
         for (let i = step; i < duration; i += step) {
             this.arrayX.push(i)
-            let previousPopulation = [], initialPopulation = []
-            for (let j = 0; j < populationsCount; j++) {
-                previousPopulation.push(this.arrayY[j][this.arrayY[0].length - 1])
-                initialPopulation.push(this.arrayY[j][0])
-            }
+            let previousPopulations = Array.from(this.arrayY, population => population[population.length - 1])
             let callback = referenceModels[model].functions[modelisation](
                 args,
-                previousPopulation,
-                initialPopulation,
+                previousPopulations,
+                initialPopulations,
                 step,
                 i
             )
