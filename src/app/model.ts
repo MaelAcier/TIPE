@@ -1,3 +1,5 @@
+import * as mathjs from 'mathjs/dist/math.js';
+
 export var globalsIDs: number[] = []
 export var globalsModelID: number = 0
 export var models = {}
@@ -75,6 +77,14 @@ export var referenceModels = {
                     derivative: [dP]
                 }
             },
+            "Auto-catalytique": (args, previousPopulation, _initialPopulation, dt) => {
+                let previous = previousPopulation[0]
+                let dP = (args.r * previous * (args.K - previous))
+                return {
+                    actual: [previous + dP * dt],
+                    derivative: [dP]
+                }
+            },
             "Discret ordre 2": (args, previousPopulation, _initialPopulation, dt) => {
                 let previous = previousPopulation[0]
                 let dP = (args.r * previous * (1 - (previous / args.K)))
@@ -120,7 +130,35 @@ export var referenceModels = {
             }
         }
     },
-    // "Leslie": {},
+    "Leslie": {
+        default: {
+            model: "Leslie",
+            modelisation: "Discret",
+            arguments: {
+                populations: [10, 7, 6, 5],
+                duration: 10,
+                step: 1,
+                args: { L: mathjs.matrix([[0.5, 0.5, 0.5, 1], [0.5, 0, 0, 0], [0, 0.5, 0, 0], [0, 0, 0.5, 0]]) }
+            }
+        },
+        basicSettings: {
+            duration: { min: 1, max: 100, step: 1 },
+            step: { min: 0, max: 1, step: 0.0001 },
+        },
+        populationsSettings: [
+            { min: 1, max: 200, step: 1 }
+        ],
+        advancedSettings: {},
+        functions: {
+            "Discret": (args, previousPopulation, _initialPopulation, _dt) => {
+                let previous = mathjs.matrix(Array.from(previousPopulation, x => [x]))
+                let population = mathjs.multiply(args.L,previous)  
+                return {
+                    actual: Array.from(population._data, x => x[0])
+                }
+            }
+        }
+    },
     "Lotka-Volterra": {
         default: {
             model: "Lotka-Volterra",
