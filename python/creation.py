@@ -8,10 +8,6 @@ import numpy as np
 import math
 
 
-fig = plt.figure()
-ax = fig.gca(projection='3d')
-
-
 def fecondite(t):
     return 0.14*math.exp((-(t - 30)**2) / 40)
 
@@ -58,27 +54,30 @@ def simulation(dt,duree,populationDesiree) :
     X = tranchesAge[:]
     Y = tableauTemps[:]
     X, Y = np.meshgrid(X, Y)
-    Z = population /10
-    #Z = X + Y
-    print(X)
-    print(Y)
-    print(Z)
+    Z = population
 
+    
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+    
     # Plot the surface.
     surf = ax.plot_surface(X, Y, Z, cmap=cm.coolwarm,
                        linewidth=0, antialiased=False)
 
     # Customize the z axis.
-    ax.set_zlim(-1.01, 1.01)
+    #ax.set_zlim(-1.01, 1.01)
     ax.zaxis.set_major_locator(LinearLocator(10))
     ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
 
     # Add a color bar which maps values to colors.
     fig.colorbar(surf, shrink=0.5, aspect=5)
+    ax.set_xlabel("Age des individus")
+    ax.set_ylabel("Temps")
+    ax.set_zlabel("Individus")
     plt.show()
-    """
-    print(populationTotale)
+    
+    """print(populationTotale)
     plt.plot(tableauTemps,populationTotale)
-    plt.show()
-    """
+    plt.show()"""
+    
 
