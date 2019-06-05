@@ -152,7 +152,7 @@ export var referenceModels = {
         functions: {
             "Discret": (args, previousPopulation, _initialPopulation, _dt) => {
                 let previous = mathjs.matrix(Array.from(previousPopulation, x => [x]))
-                let population = mathjs.multiply(args.L,previous)  
+                let population = mathjs.multiply(args.L,previous) 
                 return {
                     actual: Array.from(population._data, x => x[0])
                 }
