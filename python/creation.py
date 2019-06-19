@@ -1,22 +1,21 @@
-# This import registers the 3D projection, but is otherwise unused.
-from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 unused import
+from mpl_toolkits.mplot3d import Axes3D
 
 import matplotlib.pyplot as plt
 from matplotlib import cm
 from matplotlib.ticker import LinearLocator, FormatStrFormatter
 import numpy as np
-import math
-
+from math import *
 
 def fecondite(t):
-    return 0.14*math.exp((-(t - 30)**2) / 40)
+    return 0.14*exp((-(t - 30)**2) / 40)
 
 def mortalite(t):
-    return math.exp((t - 100) / 20) + math.exp((-t - 0.2) / 0.1)
+    return exp((t - 100) / 20) + exp((-t - 0.2) / 0.1)
 
 def modelePopInitiale(t):
-    return 1 - (math.exp((t - 100) / 20) + math.exp((-t - 0.2) / 0.1))
+    return 1 - (exp((t - 100) / 20) + exp((-t - 0.2) / 0.1))
 
+# Les fonctions acceptent des tableaux
 fecondite = np.vectorize(fecondite)
 mortalite = np.vectorize(mortalite)
 modelePopInitiale = np.vectorize(modelePopInitiale)
@@ -26,23 +25,19 @@ def simulation(dt,duree,populationDesiree) :
     tranchesAge = np.arange(dt/2,100,dt)
     tableauTemps = np.arange(dt/2,duree,dt)
     nbTranches = range(len(tranchesAge))
-    
-    """f = [0.5, 0.5, 0.5, 1]
-    m = [0.5,0.5,0.5,0]
-    p = [10, 7, 6, 5]
-    """
+    #récupération des données sur les courbes
     f = fecondite(tranchesAge)
     m = mortalite(tranchesAge)
-    
+    #Multiplication par un coefficient pour avoir la population souhaitée
     p = modelePopInitiale(tranchesAge)
     total = np.sum(p)
     p *= populationDesiree/total
 
     population = np.array(p,ndmin=2)
-    
     for i in np.delete(tableauTemps,-1):
         naissances = 0
         population = np.vstack((population,population[-1][:]))
+        # Calculs des fécondités et mortalités
         for j in nbTranches:
             naissances += population[-1][j]*f[j]
             population[-1][j] -= m[j]*population[-1][j]
@@ -50,34 +45,23 @@ def simulation(dt,duree,populationDesiree) :
         population[-1][0] = naissances
         populationTotale.append(np.sum(population[-1]))
     
-    # Make data.
+    # Données en 3D
     X = tranchesAge[:]
     Y = tableauTemps[:]
     X, Y = np.meshgrid(X, Y)
     Z = population
 
-    
+    # affichage 3D
     fig = plt.figure()
     ax = fig.gca(projection='3d')
-    
-    # Plot the surface.
-    surf = ax.plot_surface(X, Y, Z, cmap=cm.coolwarm,
+    surf = ax.plot_surface(X, Y, Z, cmap=cm.RdYlGn,
                        linewidth=0, antialiased=False)
-
-    # Customize the z axis.
-    #ax.set_zlim(-1.01, 1.01)
     ax.zaxis.set_major_locator(LinearLocator(10))
     ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
-
-    # Add a color bar which maps values to colors.
     fig.colorbar(surf, shrink=0.5, aspect=5)
     ax.set_xlabel("Age des individus")
     ax.set_ylabel("Temps")
     ax.set_zlabel("Individus")
     plt.show()
     
-    """print(populationTotale)
-    plt.plot(tableauTemps,populationTotale)
-    plt.show()"""
-    
-
+simulation(1,200,1000)

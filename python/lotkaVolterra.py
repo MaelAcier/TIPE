@@ -5,13 +5,12 @@ def lotkaVolterra(args, previousPopulations, initialPopulations, dt, t):
     q = args['q']
     previousV = previousPopulations[0]
     previousP = previousPopulations[1]
-    dV = (r * previousV - alpha * previousV * previousP)
-    dP = (beta * previousV * previousP - q * previousP)
+    deriveeV = (r * previousV - alpha * previousV * previousP)
+    deriveeP = (beta * previousV * previousP - q * previousP)
     return {
-        'actual': [previousV + dV * dt, previousP + dP * dt],
-        'derivative': [dV, dP]
+        'actual': [previousV + deriveeV * dt, previousP + deriveeP * dt],
+        'derivative': [deriveeV, deriveeP]
     }
-
 
 generate(lotkaVolterra, [1, 1], 20, 0.001, {
          'r': 2 / 3, 'alpha': 4 / 3, 'beta': 1, 'q': 1, })

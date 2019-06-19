@@ -96,6 +96,39 @@ export var referenceModels = {
             }
         }
     },
+    "Gompertz": {
+        default: {
+            model: "Gompertz",
+            modelisation: "Discret",
+            arguments: {
+                populations: [1],
+                duration: 50,
+                step: 0.001,
+                args: { a: 2.1, K: 100 }
+            }
+        },
+        basicSettings: {
+            duration: { min: 1, max: 100, step: 1 },
+            step: { min: 0, max: 1, step: 0.0001 },
+        },
+        populationsSettings: [
+            { min: 1, max: 200, step: 1 }
+        ],
+        advancedSettings: {
+            a: { min: 0, max: 3, step: 0.01, name: "Constante" },
+            K: { min: 0, max: 200, step: 0.01, name: "Capacité d’accueil du milieu" }
+        },
+        functions: {
+            "Discret": (args, previousPopulation, _initialPopulation, dt) => {
+                let previous = previousPopulation[0]
+                let dP = args.a * previous * Math.log(args.K / previous)
+                return {
+                    actual: [previous + dP * dt],
+                    derivative: [dP]
+                }
+            }
+        }
+    },
     "Allee": {
         default: {
             model: "Allee",
@@ -136,6 +169,7 @@ export var referenceModels = {
             modelisation: "Discret",
             arguments: {
                 populations: [10, 7, 6, 5],
+                populationNames: ["Age 1", "Age 2", "Age 3", "Age 4"],
                 duration: 10,
                 step: 1,
                 args: { L: mathjs.matrix([[0.5, 0.5, 0.5, 1], [0.5, 0, 0, 0], [0, 0.5, 0, 0], [0, 0, 0.5, 0]]) }

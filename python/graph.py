@@ -28,6 +28,7 @@ def generate(fonction,initialPopulations,duration,step,args) :
         plt.show()
         
         # Si on veut afficher la dérivée à la place:
-"""     if len(derivative) > 0:
-            for i in range(populationsCount,1):
-                plt.plot(arrayX, derivative[i], label='population '+str(i)) """
+        """if len(derivative) > 0:
+            for i in range(0,populationsCount,1):
+                plt.plot(arrayX, derivative[i], label='population '+str(i))
+            plt.show()"""
